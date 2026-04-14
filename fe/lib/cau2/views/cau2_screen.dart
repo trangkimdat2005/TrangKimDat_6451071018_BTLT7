@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../apps/product_repository.dart';
-import '../models/product.dart';
+import '../app/product_repository.dart';
 
 class Cau2Screen extends StatelessWidget {
   const Cau2Screen({super.key});
@@ -32,7 +31,7 @@ class Cau2Screen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: FutureBuilder<Product>(
+            child: FutureBuilder(
               future: repository.fetchProduct(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {

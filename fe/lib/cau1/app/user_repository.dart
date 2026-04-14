@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/user.dart';
+import '../data/models/user.dart';
 
 class UserRepository {
   static const String _baseUrl = 'https://jsonplaceholder.typicode.com/users';
