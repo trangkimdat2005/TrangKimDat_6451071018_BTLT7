@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../apps/user_repository.dart';
-import '../models/user.dart';
-import '../widget/loading_indicator.dart';
-import '../widget/user_list_item.dart';
+import '../app/user_repository.dart';
+import '../common/widget/loading_indicator.dart';
+import '../common/widget/user_list_item.dart';
 
 class Cau1Screen extends StatelessWidget {
   const Cau1Screen({super.key});
@@ -34,7 +33,7 @@ class Cau1Screen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: FutureBuilder<List<User>>(
+            child: FutureBuilder(
               future: repository.fetchUsers(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {

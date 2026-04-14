@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/product.dart';
+import '../data/models/product.dart';
 
 class ProductRepository {
   static const String _baseUrl = 'https://fakestoreapi.com/products/1';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/user.dart';
+import '../../data/models/user.dart';
 
 class UserListItem extends StatelessWidget {
   final User user;
@@ -15,7 +15,10 @@ class UserListItem extends StatelessWidget {
           backgroundColor: Colors.blue,
           child: Text(
             user.name.isNotEmpty ? user.name[0].toUpperCase() : '?',
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         title: Text(
