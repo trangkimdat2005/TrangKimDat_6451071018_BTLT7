@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../app/user_repository.dart';
+import '../data/repository/user_repository.dart';
 import '../common/widget/loading_indicator.dart';
 import '../common/widget/user_list_item.dart';
 

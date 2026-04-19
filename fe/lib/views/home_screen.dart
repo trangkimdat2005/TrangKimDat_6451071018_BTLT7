@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import '../cau1/views/cau1_screen.dart';
 import '../cau2/views/cau2_screen.dart';
+import '../cau3/views/cau3_screen.dart';
+import '../cau4/views/cau4_screen.dart';
+import '../cau5/views/cau5_screen.dart';
+import '../cau6/views/cau6_screen.dart';
+import '../cau7/views/cau7_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -46,6 +51,36 @@ class HomeScreen extends StatelessWidget {
                   'Bài 2: Product Detail (GET API)',
                   Icons.shopping_cart,
                 ),
+                _buildNavButton(
+                  context,
+                  3,
+                  'Bài 3: Create Post (POST API)',
+                  Icons.add_circle,
+                ),
+                _buildNavButton(
+                  context,
+                  4,
+                  'Bài 4: Update User Info (PUT API)',
+                  Icons.edit,
+                ),
+                _buildNavButton(
+                  context,
+                  5,
+                  'Bài 5: Delete Item (DELETE API)',
+                  Icons.delete,
+                ),
+                _buildNavButton(
+                  context,
+                  6,
+                  'Bài 6: Search API (Query Params)',
+                  Icons.search,
+                ),
+                _buildNavButton(
+                  context,
+                  7,
+                  'Bài 7: Pull to Refresh (Data Reload)',
+                  Icons.refresh,
+                ),
               ],
             ),
           ),
@@ -85,6 +120,31 @@ class HomeScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const Cau2Screen()),
+            );
+          } else if (cauNumber == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Cau3Screen()),
+            );
+          } else if (cauNumber == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Cau4Screen()),
+            );
+          } else if (cauNumber == 5) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Cau5Screen()),
+            );
+          } else if (cauNumber == 6) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Cau6Screen()),
+            );
+          } else if (cauNumber == 7) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Cau7Screen()),
             );
           }
         },

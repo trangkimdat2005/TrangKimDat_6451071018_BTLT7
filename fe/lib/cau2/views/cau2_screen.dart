@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
-import '../app/product_repository.dart';
+import '../data/repository/product_repository.dart';
+import '../data/models/product.dart';
 
-class Cau2Screen extends StatelessWidget {
+class Cau2Screen extends StatefulWidget {
   const Cau2Screen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final ProductRepository repository = ProductRepository();
+  State<Cau2Screen> createState() => _Cau2ScreenState();
+}
 
+class _Cau2ScreenState extends State<Cau2Screen> {
+  final ProductRepository _repository = ProductRepository();
+  late Future<Product> _productFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProduct();
+  }
+
+  void _loadProduct() {
+    setState(() {
+      _productFuture = _repository.fetchProduct();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bài 2: Product Detail'),
@@ -32,14 +51,14 @@ class Cau2Screen extends StatelessWidget {
           ),
           Expanded(
             child: FutureBuilder(
-              future: repository.fetchProduct(),
+              future: _productFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircularProgressIndicator(),
+                        CircularProgressIndicator(color: Colors.orange),
                         SizedBox(height: 16),
                         Text('Đang tải sản phẩm...'),
                       ],
@@ -52,11 +71,22 @@ class Cau2Screen extends StatelessWidget {
                       children: [
                         const Icon(Icons.error_outline, size: 48, color: Colors.red),
                         const SizedBox(height: 16),
-                        Text('Lỗi: ${snapshot.error}'),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            'Lỗi: ${snapshot.error}',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                         const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: const Text('Thử lại'),
+                        ElevatedButton.icon(
+                          onPressed: _loadProduct,
+                          icon: const Icon(Icons.refresh),
+                          label: const Text('Thử lại'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange,
+                            foregroundColor: Colors.white,
+                          ),
                         ),
                       ],
                     ),
@@ -86,8 +116,27 @@ class Cau2Screen extends StatelessWidget {
                             child: Image.network(
                               product.image,
                               fit: BoxFit.contain,
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress.cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                        : null,
+                                    color: Colors.orange,
+                                  ),
+                                );
+                              },
                               errorBuilder: (context, error, stackTrace) {
-                                return const Icon(Icons.image_not_supported, size: 80);
+                                return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.image_not_supported, size: 60, color: Colors.grey.shade400),
+                                    const SizedBox(height: 8),
+                                    Text('Không tải được ảnh', style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
+                                  ],
+                                );
                               },
                             ),
                           ),
